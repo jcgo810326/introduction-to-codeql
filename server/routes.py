@@ -1,4 +1,3 @@
-
 from flask import request, render_template, make_response
 
 from server.webapp import flaskapp, cursor
@@ -14,7 +13,7 @@ def index():
     if name:
         pattern = f"%{name}%"
         cursor.execute(
-            "SELECT * FROM books WHERE name LIKE '%" + name + "%'"
+            "SELECT * FROM books WHERE name LIKE %s", name
             (pattern,),
         )
         books = [Book(*row) for row in cursor]
